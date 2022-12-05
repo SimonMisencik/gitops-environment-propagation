@@ -1,6 +1,6 @@
 # action.yml
 name: 'GitOps environment propagation'
-description: 'Greet someone and record the time'
+description: 'Github action for environment propagation in gitops repository.'
 inputs:
   source_enviroment:
     description: 'Source environment (e.g. staging)'
