@@ -77,7 +77,7 @@ on:
 jobs:
   promote:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Propagate changes
     steps:
       - uses: actions/checkout@v3
       - name: Propagate changes and create PR
