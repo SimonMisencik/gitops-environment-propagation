@@ -10,7 +10,11 @@ outputs:
   time: # id of output
     description: 'The time we greeted you'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.who-to-greet }}
+  using: "composite"
+  steps:
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v4
+    - using: 'docker'
+      image: 'Dockerfile'
+      args:
+        - ${{ inputs.who-to-greet }}
