@@ -1,6 +1,9 @@
 # action.yml
 name: 'GitOps environment propagation'
 description: 'Github action for environment propagation in gitops repository.'
+branding:
+  icon: 'git-pull-request'
+  color: 'green'
 inputs:
   source_enviroment:
     description: 'Source environment (e.g. staging)'
