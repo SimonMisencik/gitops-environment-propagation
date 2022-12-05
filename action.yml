@@ -14,7 +14,8 @@ runs:
   steps:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
-    - using: 'docker'
+    - name: Custom step
+      using: 'docker'
       image: 'Dockerfile'
       args:
         - ${{ inputs.who-to-greet }}
