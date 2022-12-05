@@ -1,5 +1,5 @@
 # action.yml
-name: 'Hello World'
+name: 'GitOps environment propagation'
 description: 'Greet someone and record the time'
 inputs:
   source_enviroment:
