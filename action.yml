@@ -2,17 +2,38 @@
 name: 'Hello World'
 description: 'Greet someone and record the time'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  source_enviroment:
+    description: 'Source environment (e.g. staging)'
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  destination_enviroment:
+    description: 'Destination environment (e.g. production)'
+    required: true
+  prefix_folder:
+    description: 'prefix for folder in which environment is stored(e.g. environments)'
+    required: true
+    default: 'environments'
+  suffix_folder:
+    description: 'prefix for folder in which environment is stored(e.g. app)'
+    required: true
+    default: ''
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/entrypoint.sh ahoj
+    - run: ${{ github.action_path }}/entrypoint.sh ${{ inputs.source_enviroment }} ${{ inputs.destination_enviroment }} ${{ inputs.prefix_folder }} ${{ inputs.suffix_folder }}
       shell: bash
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
+      with:
+        commit-message: Automatic ${{ inputs.source_enviroment }} to ${{ inputs.destination_enviroment }} propagation
+        committer: GitHub <noreply@github.com>
+        author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+        signoff: false
+        branch: ${{ inputs.source_enviroment }}-to-${{ inputs.destination_enviroment }}-propagation
+        delete-branch: true
+        title: '[${{ inputs.destination_enviroment }}] ${{ inputs.source_enviroment }} to ${{ inputs.destination_enviroment }} propagation'
+        body: |
+          Update of manifest files. Please check if there are any changes in the <environment>-values.yaml specific file.
+        labels: |
+          propagation
+          ${{ inputs.destination_enviroment }}
+        draft: false
