@@ -84,8 +84,8 @@ jobs:
         id: hello
         uses: simonmisencik/gitops-environment-propagation@main
         with:
-          source_enviroment: 'staging'
-          target_enviroment: 'production'
+          source_enviroment: ${{ inputs.source_env }}
+          target_enviroment: ${{ inputs.target_env }}
           prefix_folder: 'environments'
           suffix_folder: 'app'
 
